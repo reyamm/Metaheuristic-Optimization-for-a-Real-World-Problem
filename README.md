@@ -16,15 +16,22 @@ Both algorithms are implemented from scratch.
 ---
 
 ## Repository Contents
-Metaheuristic-Optimization-for-a-Real-World-Problem
-- Metaheuristic_Optimization_Proj.ipynb        # Full Colab notebook
-- Metaheuristic_Optimization_Proj - Colab.pdf  # PDF version
-- metaheuristic_optimization_proj.py           # Python script version
+1. Metaheuristic_Optimization_Proj.ipynb
 
-- eil76.tsp                                    # Dataset (76-city TSP)
+The main Jupyter notebook that includes the full implementation of Genetic Algorithm (GA) and Ant Colony Optimization (ACO), along with visualizations such as convergence curves, best tours, and the final performance comparison.
 
-- Names                                        # Team members
--  README.md                                    # This file
+2. metaheuristic_optimization_proj.py
+
+A Python script version of the project containing the core functions for GA and ACO. This script focuses on modularizing the code and separating logic from visualization.
+
+3. eil76.tsp
+
+The TSPLIB dataset used in the project. It contains 76 city coordinates that define the Traveling Salesman Problem instance we solved.
+
+4. README.md
+
+This document. It provides an overview of the project, the structure of the repository, and instructions for understanding the work.
+
 ---
 
 ## Methods Used
