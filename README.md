@@ -17,6 +17,7 @@ Both algorithms are implemented from scratch.
 
 ## Repository Contents
 Metaheuristic-Optimization-for-a-Real-World-Problem
+
   │
   ├── Metaheuristic_Optimization_Proj.ipynb        # Full Colab notebook
   ├── Metaheuristic_Optimization_Proj - Colab.pdf  # PDF version
