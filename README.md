@@ -17,16 +17,14 @@ Both algorithms are implemented from scratch.
 
 ## Repository Contents
 Metaheuristic-Optimization-for-a-Real-World-Problem
+- Metaheuristic_Optimization_Proj.ipynb        # Full Colab notebook
+- Metaheuristic_Optimization_Proj - Colab.pdf  # PDF version
+- metaheuristic_optimization_proj.py           # Python script version
 
-  │
-  ├── Metaheuristic_Optimization_Proj.ipynb        # Full Colab notebook
-  ├── Metaheuristic_Optimization_Proj - Colab.pdf  # PDF version
-  ├── metaheuristic_optimization_proj.py           # Python script version
-  │
-  ├── eil76.tsp                                    # Dataset (76-city TSP)
-  │
-  ├── Names                                        # Team members
-  └── README.md                                    # This file
+- eil76.tsp                                    # Dataset (76-city TSP)
+
+- Names                                        # Team members
+-  README.md                                    # This file
 ---
 
 ## Methods Used
