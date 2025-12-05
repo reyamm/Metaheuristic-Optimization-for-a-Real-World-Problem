@@ -7,69 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1h6o2YVChZWyBQjmcekv4_zFWkHASWjli
 """
 
-!git checkout -b main
-
-from google.colab import drive
-drive.mount('/content/drive')
-
-import os
-
-# path in your Google Drive where your repo will be stored
-project_root = "/content/drive/MyDrive/metaheuristics-colab"
-os.makedirs(project_root, exist_ok=True)
-
-# move into that folder
-os.chdir(project_root)
-
-# clone my repo
-!git clone https://github.com/reyamm/Metaheuristic-Optimization-for-a-Real-World-Problem.git
-
-# move inside the repo folder
-os.chdir("/content/drive/MyDrive/metaheuristics-colab/Metaheuristic-Optimization-for-a-Real-World-Problem")
-
-!pwd
-!ls
-
-from getpass import getpass
-import datetime
-
-# basic info for my repo on github
-github_username = "reyamm"
-repo_name = "Metaheuristic-Optimization-for-a-Real-World-Problem"
-branch_name = "main"
-
-# i type the token once and colab keeps it in memory only
-github_token = getpass("enter my github token (not shown): ")
-
-def git_commit_and_push(message=None):
-    # small helper to add changes, commit and push in one go
-    if message is None:
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        message = f"colab auto commit {timestamp}"
-
-    print("adding files...")
-    !git add .
-
-    print("committing...")
-    !git commit -m "{message}" || echo "no changes to commit."
-
-    print("pushing to github...")
-    !git push https://{github_username}:{github_token}@github.com/{github_username}/{repo_name}.git {branch_name}
-
-    print("done.")
-
-# creating a simple README file
-with open("README.md", "w") as f:
-    f.write("# Metaheuristic Optimization Project\nThis repo is synced with Google Colab.")
-
-# check that the file exists
-!ls -l
-
-git_commit_and_push("Initial test push from Colab")
-
-os.chdir("/content/drive/MyDrive/metaheuristics-colab/Metaheuristic-Optimization-for-a-Real-World-Problem")
-!pwd
-
 import math
 import random
 import numpy as np
@@ -82,15 +19,6 @@ print("Imports OK")
 
 from google.colab import files
 uploaded = files.upload()
-
-!ls
-
-!mv eil76.tsp "/content/drive/MyDrive/metaheuristics-colab/Metaheuristic-Optimization-for-a-Real-World-Problem/"
-
-!ls "/content/drive/MyDrive/metaheuristics-colab/Metaheuristic-Optimization-for-a-Real-World-Problem/"
-
-# make sure we are inside the repo folder
-os.chdir("/content/drive/MyDrive/metaheuristics-colab/Metaheuristic-Optimization-for-a-Real-World-Problem")
 
 # load eil76.tsp (tsplib euclidean tsp) and return the city coordinates
 def load_tsplib_euc2d(path):
@@ -396,17 +324,48 @@ def run_aco(
 best_tour_aco, best_len_aco, history_aco = run_aco(distance_matrix)
 print("aco best length:", best_len_aco)
 
+# aco conv
+plot_convergence(history_aco, "aco convergence on eil76")
+
+# aco best tour
+plot_tour(best_tour_aco, coords, f"aco best tour (length={best_len_aco:.1f})")
+
+# final comparison section
+
+print("GA Best Tour Length:", best_len_ga)
+print("ACO Best Tour Length:", best_len_aco)
+
 plt.figure()
-plt.plot(history_ga, label="ga")
-plt.plot(history_aco, label="aco")
+plt.plot(history_ga, label="GA")
+plt.plot(history_aco, label="ACO")
 plt.xlabel("iteration / generation")
 plt.ylabel("best tour length")
-plt.title("ga vs aco on eil76")
+plt.title("GA vs ACO Convergence Comparison")
 plt.legend()
 plt.grid(True)
 plt.show()
 
-plot_tour(best_tour_aco, coords, f"aco best tour (length={best_len_aco:.1f})")
+import numpy as np
 
-print("final ga best:", best_len_ga)
-print("final aco best:", best_len_aco)
+best_tour_ga = np.array(best_tour_ga)
+best_tour_aco = np.array(best_tour_aco)
+
+plt.figure(figsize=(8,6))
+coords_np = np.array(coords)
+
+# GA tour
+ga_x = coords_np[best_tour_ga, 0]
+ga_y = coords_np[best_tour_ga, 1]
+plt.plot(ga_x, ga_y, label=f"GA Tour ({best_len_ga:.1f})", alpha=0.7)
+
+# ACO tour
+aco_x = coords_np[best_tour_aco, 0]
+aco_y = coords_np[best_tour_aco, 1]
+plt.plot(aco_x, aco_y, label=f"ACO Tour ({best_len_aco:.1f})", alpha=0.7)
+
+plt.title("GA vs ACO Best Tours (Overlay)")
+plt.xlabel("X coordinate")
+plt.ylabel("Y coordinate")
+plt.legend()
+plt.grid(True)
+plt.show()
